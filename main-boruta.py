@@ -25,7 +25,7 @@ if __name__ == '__main__':
     y = data[targets[h]]
 
     rfc = RandomForestRegressor(random_state=41, n_jobs=-1)
-    boruta_selector = BorutaPy(rfc, verbose=1, random_state=41, max_iter=10)
+    boruta_selector = BorutaPy(rfc, verbose=1, random_state=41, max_iter=1000)
     boruta_selector.fit(np.array(X), np.array(y))
 
     # Let's create a table and see exactly what features were confirmed/rejected.
