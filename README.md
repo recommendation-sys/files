@@ -31,7 +31,7 @@ Consider the following heuristic IDs:
 - id 6: down
 - id 7: up
 
-The "input-createds" folder contains the results obtained by each heuristic and configuration across all instances. Furthermore, it contains a file with all the features (and their values) provided by Python-MIP.
+The "input-createds" folder contains the results obtained by each heuristic and configuration. Furthermore, it contains a file with all the instance features (and their values) provided by Python-MIP.
 
 The source code "main-createds.py" calculates the success obtained by the heuristics in each configuration and creates the datasets with the features provided by Python-MIP. 
 To run the source code and create the datasets for the four configurations, simply run the following command: python3 main-createds.py
