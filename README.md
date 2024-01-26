@@ -10,8 +10,9 @@
 
  All inputs needed to run the Boruta algorithm are in the “input-boruta” folder.
 
- To run the source code of the Boruta algorithm, it is necessary to inform which configuration (1, 2, 3 or 4) you want to find the most relevant features. For example:
-   python3 main-boruta.py config1
+ To run the source code of the Boruta algorithm, it is necessary to inform which configuration (1, 2, 3 or 4) you want to find the most relevant features. 
+ 
+ For example: python3 main-boruta.py config1
 
  To run the diving heuristics source code, the command to be executed must contain the following parameters (in this order):
 - the name of the instance;
@@ -19,15 +20,14 @@
 - 1 to activate the feasibility pump heuristic (0 otherwise).
 - 1 to activate cutting planes (0 otherwise);
 
-For example:
-  python3 main-diving.py air03.mps.gz 5 1 0
+For example: python3 main-diving.py air03.mps.gz 5 1 0
 
 Consider the following heuristic IDs:
 - id 0: fractional
 - id 1: coefficient
-- id 2: vectorLenght
-- id 3: lineSearch
+- id 2: vector lenght
+- id 3: linesearch
 - id 4: conflicts
-- id 5: modifiedDegree
+- id 5: modified degree
 - id 6: down
 - id 7: up
