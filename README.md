@@ -5,8 +5,7 @@
 
  All inputs needed to run the recommendation system are in the "input-recsys" folder.
  
- To run the source code of the recommendation system, simply execute the following command:
-   python3 main-recsys.py
+ To run the source code of the recommendation system, simply execute the following command: python3 main-recsys.py
 
  All inputs needed to run the Boruta algorithm are in the “input-boruta” folder.
 
