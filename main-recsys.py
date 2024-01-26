@@ -42,7 +42,7 @@ if __name__ == '__main__':
 
     pos = 0
     for config in ["config1", "config2", "config3", "config4"]:
-        file = open("input-recsys\\results_{}.txt".format(config), 'r')
+        file = open("input-recsys//results_{}.txt".format(config), 'r')
         h = 0
         for i in file.readlines():
             textf = float(i.replace("\n", '').split(';')[3])
@@ -60,7 +60,7 @@ if __name__ == '__main__':
 
     pos = 0
     for c in ["config1", "config2", "config3", "config4"]:
-        arq = open("input-recsys\\relevant_features_{}.txt".format(c), 'r')
+        arq = open("input-recsys//relevant_features_{}.txt".format(c), 'r')
         for line in arq.readlines():
             v = line.replace('\n', '').split(',')
             val = [int(i) for i in v]
@@ -76,7 +76,7 @@ if __name__ == '__main__':
 
     fold = 0
 
-    data_aux = pd.read_csv('input-recsys\\dataset_config1.xls')
+    data_aux = pd.read_csv('input-recsys//dataset_config1.xls')
     features_aux = data_aux.drop(['heur0', 'heur1', 'heur2', 'heur3', 'heur4', 'heur5', 'heur6', 'heur7'], axis=1)
 
     for train_index, test_index in cv.split(features_aux):
@@ -85,7 +85,7 @@ if __name__ == '__main__':
 
         # ---------------------------------------------------------
         tabname = 'config1'
-        data = pd.read_csv('input-recsys\\dataset_{}.xls'.format(tabname))
+        data = pd.read_csv('input-recsys//dataset_{}.xls'.format(tabname))
         all_labels = data[['heur0', 'heur1', 'heur2', 'heur3', 'heur4', 'heur5', 'heur6', 'heur7']]
         features = data.drop(['heur0', 'heur1', 'heur2', 'heur3', 'heur4', 'heur5', 'heur6', 'heur7'], axis=1)
 
@@ -107,7 +107,7 @@ if __name__ == '__main__':
         # ---------------------------------------------------------
 
         tabname = 'config2'
-        data = pd.read_csv('input-recsys\\dataset_{}.xls'.format(tabname))
+        data = pd.read_csv('input-recsys//dataset_{}.xls'.format(tabname))
         all_labels = data[['heur0', 'heur1', 'heur2', 'heur3', 'heur4', 'heur5', 'heur6', 'heur7']]
         features = data.drop(['heur0', 'heur1', 'heur2', 'heur3', 'heur4', 'heur5', 'heur6', 'heur7'], axis=1)
 
@@ -122,7 +122,7 @@ if __name__ == '__main__':
         # ---------------------------------------------------------
 
         tabname = 'config3'
-        data = pd.read_csv('input-recsys\\dataset_{}.xls'.format(tabname))
+        data = pd.read_csv('input-recsys//dataset_{}.xls'.format(tabname))
         all_labels = data[['heur0', 'heur1', 'heur2', 'heur3', 'heur4', 'heur5', 'heur6', 'heur7']]
         features = data.drop(['heur0', 'heur1', 'heur2', 'heur3', 'heur4', 'heur5', 'heur6', 'heur7'], axis=1)
 
@@ -137,7 +137,7 @@ if __name__ == '__main__':
         # ---------------------------------------------------------
 
         tabname = 'config4'
-        data = pd.read_csv('input-recsys\\dataset_{}.xls'.format(tabname))
+        data = pd.read_csv('input-recsys//dataset_{}.xls'.format(tabname))
         all_labels = data[['heur0', 'heur1', 'heur2', 'heur3', 'heur4', 'heur5', 'heur6', 'heur7']]
         features = data.drop(['heur0', 'heur1', 'heur2', 'heur3', 'heur4', 'heur5', 'heur6', 'heur7'], axis=1)
 
