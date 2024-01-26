@@ -14,7 +14,7 @@ if __name__ == '__main__':
 
 
     config = sys.argv[1]
-    data = pd.read_csv('input-boruta\\dataset_{}.xls'.format(config))
+    data = pd.read_csv('input-boruta//dataset_{}.xls'.format(config))
     h = int(sys.argv[2])
     
     targets = ['heur0', 'heur1', 'heur2', 'heur3', 'heur4', 'heur5', 'heur6', 'heur7']
