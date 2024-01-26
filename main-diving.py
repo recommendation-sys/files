@@ -836,7 +836,7 @@ def calculate_locks(m):
     return down_locks, up_locks, vars_bin_int, columnLength, root, origObjCoefs
 
 
-def execute(strategy, useFPumpObj, m, direction, down_locks, up_locks, vars_bin_int, columnLength, root, origObjCoefs,
+def execute(strategy, useFPumpObj, useCPlanes, m, direction, down_locks, up_locks, vars_bin_int, columnLength, root, origObjCoefs,
             degree, check_degree, constraints):
     Pass = 0
     TIME_LIMIT = 10800
@@ -892,40 +892,41 @@ def execute(strategy, useFPumpObj, m, direction, down_locks, up_locks, vars_bin_
                     else:
                         return 1, time.time() - ini, Pass, False, 0
 
-                # generate Cuts
-                cp1 = m.generate_cuts([CutType.ODD_WHEEL])
-                cp2 = m.generate_cuts([CutType.CLIQUE])
-                cp3 = m.generate_cuts([CutType.KNAPSACK_COVER])
-                cp4 = m.generate_cuts([CutType.MIR])
-                cp5 = m.generate_cuts([CutType.GOMORY])
+                if useCPlanes:
+                    # generate Cuts
+                    cp1 = m.generate_cuts([CutType.ODD_WHEEL])
+                    cp2 = m.generate_cuts([CutType.CLIQUE])
+                    cp3 = m.generate_cuts([CutType.KNAPSACK_COVER])
+                    cp4 = m.generate_cuts([CutType.MIR])
+                    cp5 = m.generate_cuts([CutType.GOMORY])
 
-                cp = CutPool()
+                    cp = CutPool()
 
-                for cut in cp1.cuts:
-                    cp.add(cut)
-                for cut in cp2.cuts:
-                    cp.add(cut)
-                for cut in cp3.cuts:
-                    cp.add(cut)
-                for cut in cp4.cuts:
-                    cp.add(cut)
-                for cut in cp5.cuts:
-                    cp.add(cut)
+                    for cut in cp1.cuts:
+                        cp.add(cut)
+                    for cut in cp2.cuts:
+                        cp.add(cut)
+                    for cut in cp3.cuts:
+                        cp.add(cut)
+                    for cut in cp4.cuts:
+                        cp.add(cut)
+                    for cut in cp5.cuts:
+                        cp.add(cut)
 
-                # generate CDC cut
-                cp_cdc = cdc_separation(m, constraints)
-                for cut in cp_cdc.cuts:
-                    cp.add(cut)
+                    # generate CDC cut
+                    cp_cdc = cdc_separation(m, constraints)
+                    for cut in cp_cdc.cuts:
+                        cp.add(cut)
 
-                if cp.cuts.__len__() > 0:
-                    for cut in cp.cuts:
-                        m += cut
-                    st = m.optimize(relax=True)
-                    if st != OptimizationStatus.OPTIMAL:
-                        if time.time() - ini >= TIME_LIMIT:
-                            return 0, time.time() - ini, Pass, False, 0
-                        else:
-                            return 1, time.time() - ini, Pass, False, 0
+                    if cp.cuts.__len__() > 0:
+                        for cut in cp.cuts:
+                            m += cut
+                        st = m.optimize(relax=True)
+                        if st != OptimizationStatus.OPTIMAL:
+                            if time.time() - ini >= TIME_LIMIT:
+                                return 0, time.time() - ini, Pass, False, 0
+                            else:
+                                return 1, time.time() - ini, Pass, False, 0
             else:
                 trivially_round(fracVars, down_locks, up_locks, origObjCoefs, direction, origSol)
                 Fo = sum(origObjCoefs[i] * origSol[i] for i in range(origObjCoefs.__len__()))
@@ -990,6 +991,7 @@ if __name__ == '__main__':
     filename = sys.argv[1]
     heuristic = int(sys.argv[2])
     useFPumpObj = int(sys.argv[3])
+    useCPlanes = int(sys.argv[4])
 
     print("\n", filename)
 
@@ -1015,7 +1017,7 @@ if __name__ == '__main__':
     # Start Diving Heuristic
     # -----------------------------------------------------
     try:
-        status, time, Pass, Trivially, Fo = execute(heuristic, useFPumpObj, m, direction, down_locks, up_locks,
+        status, time, Pass, Trivially, Fo = execute(heuristic, useFPumpObj, useCPlanes, m, direction, down_locks, up_locks,
                                                     vars_bin_int,
                                                     columnLength, root, origObjCoefs, degree, check_degree, constraints)
     except Exception as e:
@@ -1025,20 +1027,22 @@ if __name__ == '__main__':
     text = ''
     if useFPumpObj == 1:
         text = '_fpump'
+    if useCPlanes == 1:
+        text += '_cuts'
 
     if status == -1:
         if not Trivially:
-            result = '{};{}{};{};{};{};{};{}\n'.format(filename, heuristics[heuristic], text, Pass, round(time, 2),
-                                                       objvalue(m, origObjCoefs), heuristic, useFPumpObj)
+            result = '{};{}{};{};{};{};{};{};{}\n'.format(filename, heuristics[heuristic], text, Pass, round(time, 2),
+                                                       objvalue(m, origObjCoefs), heuristic, useFPumpObj, useCPlanes)
         else:
-            result = '{};{}{};{};{};{};{};{}\n'.format(filename, heuristics[heuristic], text, Pass, round(time, 2),
-                                                       Fo, heuristic, useFPumpObj)
+            result = '{};{}{};{};{};{};{};{};{}\n'.format(filename, heuristics[heuristic], text, Pass, round(time, 2),
+                                                       Fo, heuristic, useFPumpObj, useCPlanes)
     elif status == 0:
-        result = '{};{}{};{};{};TimeLimit;{};{}\n'.format(filename, heuristics[heuristic], text, Pass, round(time, 2),
-                                                          heuristic, useFPumpObj)
+        result = '{};{}{};{};{};TimeLimit;{};{};{}\n'.format(filename, heuristics[heuristic], text, Pass, round(time, 2),
+                                                          heuristic, useFPumpObj, useCPlanes)
     else:
-        result = '{};{}{};{};{};Infeasible;{};{}\n'.format(filename, heuristics[heuristic], text, Pass, round(time, 2),
-                                                           heuristic, useFPumpObj)
+        result = '{};{}{};{};{};Infeasible;{};{};{}\n'.format(filename, heuristics[heuristic], text, Pass, round(time, 2),
+                                                           heuristic, useFPumpObj, useCPlanes)
 
     print("\n=== FINAL RESULT ===\n", result)
 
