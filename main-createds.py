@@ -11,7 +11,7 @@ def criate_dataset():
 
     for tabname in ['config1', 'config2', 'config3', 'config4']:
 
-        file_feat = open("input-createds\\instance_features_values.txt", 'r')
+        file_feat = open("input-createds//instance_features_values.txt", 'r')
 
         features = [f for f in file_feat.readlines()]
 
@@ -23,9 +23,9 @@ def criate_dataset():
 
         lines = [t]
 
-        files = os.listdir("instances\\")
+        files = os.listdir("instances//")
 
-        results = open("results_{}.txt".format(tabname), 'r')
+        results = open("input-createds//results_{}.txt".format(tabname), 'r')
 
         pos = 0
         count = 0
@@ -58,7 +58,7 @@ def criate_dataset():
             lines.append(t)
 
         # .xls
-        file = open("dataset_{}.xls".format(tabname), 'w')
+        file = open("input-createds//dataset_{}.xls".format(tabname), 'w')
         file.writelines(lines)
         file.close()
 
