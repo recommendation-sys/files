@@ -35,3 +35,5 @@ The "input-createds" folder contains the results obtained by each heuristic and 
 
 The source code "main-createds.py" calculates the success obtained by the heuristics in each configuration and creates the datasets with the features provided by Python-MIP. 
 To run the source code and create the datasets for the four configurations, simply run the following command: python3 main-createds.py
+
+The file "Feature description.pdf" contains the description of the 207 features provided by Python-mip package.
