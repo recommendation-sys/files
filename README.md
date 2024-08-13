@@ -1,5 +1,6 @@
 # files
- Source code and instances used in the paper "Learning to Run Primal Heuristics and Cutting Planes for Mixed Integer Programming".
+ Source code and instances used in the paper "Learning When to Run Primal Heuristics and Cutting Planes for
+Mixed-Integer Linear Programming".
 
  All instances used in the experiments are in the "instances" folder.
 
