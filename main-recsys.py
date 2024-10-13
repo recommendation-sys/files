@@ -186,4 +186,4 @@ if __name__ == '__main__':
 
     print("\n=== Final result ===")
     print("- Optimal heuristic found {} feasible solutions.".format(solutions_found[0]))
-    print("- Recommendation system found {} feasible solutions. \n".format(solutions_found[1]))
+    print("- Recommendation system found {} feasible solutions. ".format(solutions_found[1]))
