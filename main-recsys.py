@@ -5,11 +5,6 @@ from sklearn.model_selection import KFold
 from sklearn.ensemble import RandomForestRegressor
 
 
-def calc_metric(v):
-    perc = 100 - v * 100 / 10800
-    return int(perc)
-
-
 def recommendation_system(train_index, test_index, boruta_feats, all_labels, features_data):
     predictions = []
 
@@ -191,4 +186,4 @@ if __name__ == '__main__':
 
     print("\n=== Final result ===")
     print("- Optimal heuristic found {} feasible solutions.".format(solutions_found[0]))
-    print("- Recommendation system found {} feasible solutions. \n".format(solutions_found[0]))
+    print("- Recommendation system found {} feasible solutions. \n".format(solutions_found[1]))
